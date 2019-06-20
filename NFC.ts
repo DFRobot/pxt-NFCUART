@@ -1,4 +1,3 @@
-
 enum DataBlockList {
     //% block="1"
     block_1 = 1,
@@ -226,7 +225,7 @@ namespace NFC {
     }
 
     //% weight=60
-    //% block="Detected card?"
+    //% block="Detected card"
     //% blockId=get_NFC_card
     export function getCard(): boolean {
         nfcSetRxBufferSize(100);
@@ -324,7 +323,7 @@ namespace NFC {
     }
 
     //% weight=80
-    //% block="Did you detect the card UID|%str|?"
+    //% block="The card UID|%str|is detected"
     //% blockId=check_UID
     export function checkUID(str: string): boolean {
         if (getUID() == str)
@@ -334,13 +333,13 @@ namespace NFC {
 
 
     //% weight=49
-    //% blockId=block_nfc_list block="%blockNum|(data block)"
+    //% blockId=block_nfc_list block="%blockNum|data block"
     export function blockList(blockNum?: DataBlockList): number {
         return blockNum;
     }
 
     //% weight=49
-    //% blockId=data_nfc_list block="%dataNum|(byte)"
+    //% blockId=data_nfc_list block="%dataNum|byte"
     export function nfcDataList(dataNum?: byteNumList): number {
         return dataNum;
     }
@@ -350,7 +349,7 @@ namespace NFC {
     }
 
     //% weight=90
-    //% blockId=nfc_event block="When a card is detected."
+    //% blockId=nfc_event block="When a card is detected"
     export function nfcEvent(a: Action) {
         nfcCallBack = a;
     }
@@ -379,7 +378,7 @@ namespace NFC {
     //% weight=90
     //% blockId=write_nfc_data 
     //% data.min=0 data.max=255
-    //% block="NFC sensor data block :|%blockNum=block_nfc_list| byte: %byteNum=data_nfc_list|write%writeIn"
+    //% block="NFC sensor|%blockNum=block_nfc_list|%byteNum=data_nfc_list|write%writeIn"
     export function writeData(blockNum: number, index: number, data: number): void {
         if (((blockNum + 1) % 4 == 0) || (blockNum > 63) || (blockNum < 0)) {
             return;
@@ -394,7 +393,7 @@ namespace NFC {
     }
 
     //% weight=60
-    //% blockId=read_nfc_data block="Read NFC sensor data block:|%num=block_nfc_list|all data"
+    //% blockId=read_nfc_data block="Read NFC sensor|%num=block_nfc_list|all data"
     export function readNFCData(num: number): string {
         if (!passWordCheck(num, uid, password))
             return "read error!"
@@ -426,7 +425,7 @@ namespace NFC {
     }
 
     //% weight=60
-    //% blockId=read_nfc_data_one block="Read NFC sensor data block:|%blockNum=block_nfc_list|in%byteNum=data_nfc_list"
+    //% blockId=read_nfc_data_one block="Read NFC sensor|%blockNum=block_nfc_list|in%byteNum=data_nfc_list"
     export function readNFCDataOne(blockNum: number, byteNum: number): number {
         let ret = 0;
         readNFCData(blockNum);
@@ -444,3 +443,4 @@ namespace NFC {
         }
     })
 } 
+ 
